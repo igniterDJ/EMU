@@ -1,0 +1,40 @@
+org 100h
+.data  
+
+MSG1 DB 0DH,0AH,"ENTER LETTER ((a)) : $"
+MSG2 DB 0DH,0AH,"CORRECT $" 
+MSG3 DB 0DH,0AH,"NOT CORRECT :$"
+
+.CODE
+MAIN PROC
+    MOV AX,@DATA
+    MOV DS,AX
+    
+    MOV AH,09H
+    LEA DX,MSG1
+    INT 21H
+    
+    MOV AH,01H 
+    INT 21H
+    
+    CMP AL,61H
+    JE ELSE
+    JNE NELSE
+    
+    
+    
+    ELSE:
+    MOV AH,09H
+    LEA DX,MSG2
+    INT 21H
+    JMP K
+      
+    NELSE:
+    MOV AH,09H
+    LEA DX,MSG3
+    INT 21H
+    
+    
+    K:
+
+ret
