@@ -1,0 +1,33 @@
+org 100h
+
+mov ax, 0
+mov dx, 378
+out dx, ax
+mov ax, 1  
+
+; 1st
+
+mov cx, 1ah
+start1st:
+mov ax, 1
+left:
+out dx, ax 
+ 
+
+MOV     CX, 0FH
+MOV     DX, 4240H
+MOV     AH, 86H
+INT     15H 
+
+mov dl,'A' 
+mov ah,2
+int 21h
+
+
+mov bx, 2
+mul bx
+cmp ax, 80h
+jl left
+dec cx
+cmp cx,0
+jg start1st
