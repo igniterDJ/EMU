@@ -1,0 +1,57 @@
+data segment
+    A DB 20h,62h,17h,15h,75h,18h,17h,44h,24h,28h,49h,36h,75h,34h,27h,00h;
+data ends
+ 
+code segment
+assume cs:code, ds:data
+    
+start:  mov ax,data
+        mov ds,ax
+        
+        lea bx,A                
+        mov di,5000H           
+        mov cx,0010H       
+        mov dx,0000H         
+    
+back:   mov dl,byte ptr[bx]    
+        
+        mov ax,2000H          
+        mov ds,ax
+        
+        mov [di],dl        
+        
+        mov ax,data            
+        mov ds,ax
+
+        inc bx                 
+        inc di                 
+        loop back             
+
+        mov ax,2000H           
+        mov ds,ax
+
+        xor cx,cx
+        xor bx,bx  
+        xor si,si                      
+       
+        mov cx, 10h            
+
+        mov bl, 00h             
+        mov si, 5000H           
+
+up:     mov al,byte ptr[SI]     
+        cmp al, bl               
+        jl nxt                  
+        mov bl, al             
+
+nxt:    inc si                  
+        dec cx
+        jnz up
+        
+        mov dl,bl
+        
+        mov [si+1],bl         
+        hlt                
+       
+code ends
+end start
