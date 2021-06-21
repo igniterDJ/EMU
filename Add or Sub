@@ -1,0 +1,53 @@
+
+
+org 100h           
+
+.data
+  
+A DB 0AH,0DH,"ENTER 1'st NUMBER :$"
+B DB 0AH,0DH,"ENTER 2'nd NUMBER :$"
+C DB 0AH,0DH,"YOUR RESULT IS :$"
+
+.code
+
+MOV AX,@DATA
+MOV DS,AX
+
+    LEA DX,A     
+    MOV AH,09H
+    INT 21H   
+    
+    MOV AH,01
+    INT 21H 
+    
+    MOV BL,AL
+    
+    LEA DX,B     
+    MOV AH,09H
+    INT 21H   
+    
+    MOV AH,01
+    INT 21H 
+    
+    MOV BH,AL 
+    
+    SUB BH,30H
+    SUB BL,30H
+    
+    LEA DX,C    
+    MOV AH,09H
+    INT 21H 
+    add bh,bl
+   ;SUB BH,BL
+    ADD BH,30H
+    MOV DL,BH
+    
+    MOV AH,02
+    INT 21H
+
+
+ret
+
+
+
+
